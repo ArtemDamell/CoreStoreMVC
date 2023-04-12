@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ClientUser>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row">
+    <div class="col">
+        <h1 class="text-info">All Clients</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="table-responsive">
+            <table class="table table-striped border">
+                <thead class="bg-info">
+                    <tr>
+                        <th>Name</th>
+                        <th>IP</th>
+                        <th>MAC</th>
+                        <th>Is Banned by</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.FirstName</td>
+                            <td>@item.UserIP</td>
+                            <td>@item.UserMAC</td>
+                            <td>
+                                @if (item.LockoutEnd.HasValue)
+                                {
+                                    @item.LockoutEnd.Value.ToString("dd.MM.yyyy")
+                                }
+                            </td>
+                            <td><a asp-action="BanById" asp-route-id="@item.Id" class="btn btn-primary">Ban IP</a></td>
+                            <td><a asp-action="BanByMac" asp-route-id="@item.Id" class="btn btn-primary">Ban MAC</a></td>
+                            <td>
+                                <a asp-action="BanByDate" asp-route-id="@item.Id" asp-route-date="@DateTime.Now.AddDays(3).ToString()" class="btn btn-primary">Ban 3 days</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+

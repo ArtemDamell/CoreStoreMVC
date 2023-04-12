@@ -1,0 +1,67 @@
+﻿@model CoreStoreMVC.Models.ViewModel.AppointmentViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<form method="get">
+    <div class="row">
+        <div class="col">
+            <h1 class="text-info">Appointment List</h1>
+        </div>
+    </div>
+    <div class="p-3 border border-primary rounded mb-2" style="background-color: aliceblue">
+        <div class="row my-3">
+            <div class="col">
+                <input class="form-control" name="searchKey" type="text" placeholder="Type Name, Email or Phone for search..." />
+            </div>
+            <div class="col-3">
+                <button type="submit" class="btn btn-primary form-control">Search</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="table-responsive">
+                <table class="table table-striped border">
+                    <thead class="table-info">
+                        <tr>
+                            <th>@Html.DisplayNameFor(x => x.Appointments.FirstOrDefault().SalesPerson.Name)</th>
+                            <th>@Html.DisplayNameFor(x => x.Appointments.FirstOrDefault().AppointmentDay)</th>
+                            <th>@Html.DisplayNameFor(x => x.Appointments.FirstOrDefault().CustomerFirstName)</th>
+                            <th>@Html.DisplayNameFor(x => x.Appointments.FirstOrDefault().CustomerLastName)</th>
+                            <th>@Html.DisplayNameFor(x => x.Appointments.FirstOrDefault().CustomerPhoneNumber)</th>
+                            <th>@Html.DisplayNameFor(x => x.Appointments.FirstOrDefault().CustomerEmail)</th>
+                            <th>@Html.DisplayNameFor(x => x.Appointments.FirstOrDefault().Adress)</th>
+                            <th>@Html.DisplayNameFor(x => x.Appointments.FirstOrDefault().Index)</th>
+                            <th>@Html.DisplayNameFor(x => x.Appointments.FirstOrDefault().City)</th>
+                            <th>@Html.DisplayNameFor(x => x.Appointments.FirstOrDefault().IsConfirmed)</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Appointments)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(m => item.SalesPerson.Name)</td>
+                                <td>@item.AppointmentDay.ToString("dd.MM.yyyy  HH:mm")</td>
+                                <td>@Html.DisplayFor(m => item.CustomerFirstName)</td>
+                                <td>@Html.DisplayFor(m => item.CustomerLastName)</td>
+                                <td>@Html.DisplayFor(m => item.CustomerPhoneNumber)</td>
+                                <td>@Html.DisplayFor(m => item.CustomerEmail)</td>
+                                <td>@Html.DisplayFor(m => item.Adress)</td>
+                                <td>@Html.DisplayFor(m => item.Index)</td>
+                                <td>@Html.DisplayFor(m => item.City)</td>
+                                <td>@Html.DisplayFor(m => item.IsConfirmed)</td>
+                                <td><partial name="_TableButtonPartial" model="item.Id" /></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div page-model="@Model.PaginationInfo" page-action="Index" page-classes-enabled="true" page-class="btn border"
+         page-class-normal="btn btn-default active" page-class-selected="btn btn-primary active" class="btn-group m-1">
+    </div>
+</form>

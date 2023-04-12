@@ -1,0 +1,58 @@
+﻿@model CoreStoreMVC.Models.Appointment
+
+<h4 class="text-success">Appointment Details</h4>
+
+<div class="container border" style="background-color: aliceblue">
+    <div class="col-12 pt-3">
+        <div class="row mb-2">
+            <div class="col-sm-2">
+                First Name:
+            </div>
+            <div class="col-sm-3">
+                <input asp-for="@Model.CustomerFirstName" readonly class="form-control" />
+            </div>
+            <div class="col-sm-2">
+                Last Name:
+            </div>
+            <div class="col-sm-3">
+                <input asp-for="@Model.CustomerLastName" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-sm-2">
+                Email:
+            </div>
+            <div class="col-sm-3">
+                <input asp-for="@Model.CustomerEmail" readonly class="form-control" />
+            </div>
+            <div class="col-sm-2">
+                Phone Number:
+            </div>
+            <div class="col-sm-3">
+                <input asp-for="@Model.CustomerPhoneNumber" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-sm-2">
+                Adress:
+            </div>
+            <div class="col-sm-3">
+                <input asp-for="@Model.Adress" readonly class="form-control" />
+            </div>
+            <div class="col-sm-2">
+                City:
+            </div>
+            <div class="col-sm-3">
+                <input asp-for="@Model.City" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="row mb-2 align-middle">
+            <div class="col-sm-2">
+                Appointment Date:
+            </div>
+            <div class="col-sm-3">
+                <input readonly class="form-control" value="@Model.AppointmentDay.ToString("dd.MM.yyyy HH:mm")" />
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,68 @@
+﻿@model IEnumerable<CoreStoreMVC.Models.ApplicationUser>
+
+@using System.Web
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@if (TempData["SM"] != null)
+{
+    <div class="row text-center">
+        <div class="col-12 alert alert-success">
+            @TempData["SM"]
+        </div>
+    </div>
+}
+
+<div class="row mt-2">
+    <div class="col-6">
+        <h2 class="text-info">Admin Users List</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-info"><i class="fas fa-plus-square"></i>&nbsp; New Admin User</a>
+    </div>
+</div>
+
+<div class="mt-1">
+    <table class="table table-striped border">
+        <thead>
+            <tr class="table-info">
+                <th>@Html.DisplayNameFor(x => x.Name)</th>
+                <th>@Html.DisplayNameFor(x => x.Email)</th>
+                <th>@Html.DisplayNameFor(x => x.PhoneNumber)</th>
+                <th>Disabled</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(x => item.Name)</td>
+                    <td>@Html.DisplayFor(x => item.Email)</td>
+                    <td>@Html.DisplayFor(x => item.PhoneNumber)</td>
+                    <td>
+                        @if (item.LockoutEnd is not null && item.LockoutEnd > DateTime.Now)
+                        {
+                            <label>Disabled</label>
+                        }
+                    </td>
+                    <td>
+                        @if (item.LockoutEnd is null || item.LockoutEnd < DateTime.Now)
+                        {
+                            <div class="btn-group" role="group">
+                                <a class="btn btn-primary" href="@HttpUtility.UrlDecode(Url.Action($"Edit/{item.Id}"))">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a class="btn btn-danger" href="@HttpUtility.UrlDecode(Url.Action($"Delete/{item.Id}"))">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </div>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

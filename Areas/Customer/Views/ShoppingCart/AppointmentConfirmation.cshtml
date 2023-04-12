@@ -1,0 +1,34 @@
+﻿@model CoreStoreMVC.Models.ViewModel.ShoppingCartViewModel
+
+@{
+    ViewData["Title"] = "Appointment Confirmation";
+    int count = 1;
+}
+
+<h2 class="text-info mt-1">Appointment Confirmation</h2>
+
+<div class="form-text">
+    Your appointment has been submitted. Please, pay appointment now!
+</div>
+
+<br />
+<partial name="_AppointmentCustomerDetails" model="Model.Appointment" />
+<br />
+<partial name="_AppointmentProductDetails" model="Model.Products" />
+
+<form class="paypalform" action="@Model.PayPalConfig.PostUrl" method="post">
+    <input type="hidden" name="cmd" value="_cart">
+    <input type="hidden" name="upload" value="1" />
+    <input type="hidden" name="business" value="@Model.PayPalConfig.Business">
+    @foreach (var item in Model.Products)
+    {
+        <input type="hidden" name="item_name_@count" value="@item.Name">
+        <input type="hidden" name="amount_@count" value="@item.Price.ToString(System.Globalization.CultureInfo.InvariantCulture)">
+        <input type="hidden" name="quantity_@count" value="@item.Quantity">
+        count++;
+    }
+    <input type="hidden" name="currency_code" value="EUR">
+    <input type="submit" value="Make Appointment" class="btn btn-primary form-control" />
+</form>
+
+<a asp-area="Customer" asp-controller="Home" asp-action="Index" class="btn btn-success">Back to Products</a>
